@@ -36,7 +36,7 @@ export async function isAdmin({
   const resp = await fetch(`${apiUrl}/admin/login/?next=/admin/`, {
     method: "POST",
     body: formData,
-    credentials: "same-origin",
+    credentials: "include",
   });
   const data = await resp.text();
   const parser = new DOMParser();
