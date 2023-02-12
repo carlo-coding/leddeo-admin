@@ -1,0 +1,72 @@
+import { Box, IconButton } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { deleteCookie } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import { PrivateRoutes } from "../../models";
+import { useAppSelector } from "../../app/hooks";
+
+function Sidebar() {
+  const navigate = useNavigate();
+  const isAuthenticaed = useAppSelector((state) => state.auth.isAuthenticated);
+
+  const handleLogout = () => {
+    deleteCookie("access");
+    deleteCookie("refresh");
+    window.location.assign("/");
+  };
+
+  return (
+    <Box
+      style={{
+        backgroundColor: "#FFFFFF",
+        display: "flex",
+        flexDirection: "column",
+        gap: "15px",
+        alignItems: "center",
+        width: "60px",
+        position: "fixed",
+        paddingTop: "80px",
+        left: 0,
+        bottom: 0,
+        top: 0,
+        zIndex: 500,
+      }}
+    >
+      {/* <IconButton
+        onClick={() => {
+          navigate(`/${PublicRoutes.PLANS}`);
+        }}
+      >
+        <AttachMoneyIcon sx={{ color: "layout.black" }} />
+      </IconButton> */}
+
+      {/* <IconButton>
+        <MenuIcon sx={{ color: "layout.black" }} />
+      </IconButton> */}
+
+      <IconButton
+        onClick={() => {
+          navigate(`/${PrivateRoutes.PRIVATE}/${PrivateRoutes.FAQS}`);
+        }}
+      >
+        <QuestionMarkIcon sx={{ color: "layout.black" }} />
+      </IconButton>
+
+      {isAuthenticaed && (
+        <IconButton
+          onClick={handleLogout}
+          sx={{
+            marginTop: "auto",
+            marginBottom: "1em",
+            color: "layout.black",
+          }}
+        >
+          <LogoutIcon />
+        </IconButton>
+      )}
+    </Box>
+  );
+}
+export default Sidebar;
