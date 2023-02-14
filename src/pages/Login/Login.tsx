@@ -25,10 +25,6 @@ function Login() {
   });
 
   const handleFormSubmit = async (values: ILoginPayload) => {
-    const admin = await isAdmin(values);
-    if (!admin) {
-      return enqueueSnackbar("No eres administrador", { variant: "error" });
-    }
     dispatch(login(values));
   };
 
